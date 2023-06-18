@@ -1,0 +1,17 @@
+{
+    "name": "climax/php-calendrier",
+    "autoload": {
+        "psr-4": {
+            "Climax\\PhpCalendrier\\": "src/",
+            "Calendar\\": "src/Calendar",
+            "App\\": "src/App"
+        }
+    },
+    "authors": [
+        {
+            "name": "Philippe Bidouze",
+            "email": "philippe.bidouze@lapiscine.pro"
+        }
+    ],
+    "require": {}
+}
