@@ -17,13 +17,5 @@ Class EventValidator extends Validator {
         $this->validate('start', 'beforeTime', 'end');
         return $this->errors;
     }
-    /**
-     * @param array $status
-     * @return array|bool
-     */
-    public function casevalidates(array $status) {
-        parent::casevalidates($status);
-        $this->casevalidate('status', 'hide', 'is_piblished');
-        return $this->errors;
-    }
+   
 }

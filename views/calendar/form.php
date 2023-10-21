@@ -10,6 +10,28 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
+            <label for="coach">Coach</label>
+            <input id="coach" type="text" required class="form-control" name="coach" value="<?= isset($coach['name']) ? h($coach['name']) : ''; ?>">
+            <?php if (isset($errors['name'])): ?>
+                <small class="form-text text-muted"><?= $errors['name']; ?></small>
+            <?php endif ; ?>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationCustom04" class="form-label">State</label>
+            <select class="form-select" id="validationCustom04" required>
+                <option selected disabled value="">Choose...</option>
+                <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a valid state.
+            </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
             <label for="date">Date</label>
             <input id="date" type="date" required class="form-control" name="date" value="<?= isset($data['date']) ? h($data['date']) : ''; ?>">
             <?php if (isset($errors['date'])): ?>
@@ -44,22 +66,6 @@
 </div>
 <div class="form-group">
 
-     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                         
-        <input type="radio" name="status" id="status1" autocomplete="off" class="form-control btn-check" value="<?= isset($data['status']) ? h($data['status']) : ''; ?>">
-        <?php if (isset($errors['status'])): ?>
-                <small class="form-text text-muted"><?= $errors['status']; ?></small>
-            <?php endif; ?>
-        <label class="btn btn-outline-primary" for="status1" >publier un évènement</label>
-
-        <input type="radio" name="status" id="status2" autocomplete="off" class="form-control btn-check" value="<?= isset($data['status']) ? h($data['status']) : ''; ?>">
-        <?php if (isset($errors['hide'])): ?>
-                <small class="form-text text-muted"><?= $errors['hide']; ?></small>
-            <?php endif; ?>
-        <label class="btn btn-outline-primary" for="status2">cacher un évènement</label>
-        
-
-    </div>
 </div>
 <div class="row">  
 <div class="col-sm-6 ">

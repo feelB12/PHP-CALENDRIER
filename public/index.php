@@ -24,11 +24,6 @@ $weeks = $month->getWeeks();
 $end = $start->modify('+' . (6 + 7 * ($weeks - 1)) . ' days');
 $events = $events->getEventsBetweenByDay($start, $end);
 
-$status = [];
-if(isset($_POST['status'])){
-    echo $_POST['status'];
-}
-
 require '../views/header.php';
 ?>
 
@@ -43,7 +38,6 @@ require '../views/header.php';
          <div class="container">
             <div class="alert alert-sucsess">
                L'évènement a bien été enregistré<br>
-               <?php echo "en statut: <b>" . $_POST['status'] . "</b><br>"; ?>
             </div>
          </div>
       <?php endif; ?>

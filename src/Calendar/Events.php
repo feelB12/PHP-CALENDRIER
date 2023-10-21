@@ -8,7 +8,6 @@ class Events {
 
     private $btnradio = [];
 
-
     public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -75,8 +74,7 @@ class Events {
         $event->setName($data['name']);
         $event->setDescription($data['description']);
         $event->setStart(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['start'])->format('Y-m-d H:i:s'));
-        $event->setEnd(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));   
-        $event->setStatus($data['status']);
+        $event->setEnd(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
       
         return $event;
     }
@@ -87,15 +85,12 @@ class Events {
      * @throws bool
      */
     public function create (Event $event): bool {
-        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end, hide, is_published, status, created_at ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end, created_at ) VALUES (?, ?, ?, ?, ?)');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
-            $event->getHide()->format('Y-m-d H:i:s'),
-            $event->getPublished()->format('Y-m-d H:i:s'),
-            $event->getStatus(),
             $event->getCreated()->format('Y-m-d H:i:s')
         ]);
     }
@@ -106,16 +101,13 @@ class Events {
      * @throws bool
      */
     public function update (Event $event): bool {
-        $statement = $this->pdo->prepare('UPDATE events SET name = ? , description = ? , start = ? , end = ? , hide = ? , is_published = ? , created_at = ?, status = ? WHERE id = ?');
+        $statement = $this->pdo->prepare('UPDATE events SET name = ? , description = ? , start = ? , end = ?, created_at = ? WHERE id = ?');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
-            $event->getHide()->format('Y-m-d H:i:s'),
-            $event->getPublished()->format('Y-m-d H:i:s'),
             $event->getCreated()->format('Y-m-d H:i:s'),
-            $event->getStatus(),
             $event->getId()
         ]);
     }
@@ -126,53 +118,12 @@ class Events {
      * @throws bool
      */
     public function delete (Event $event): bool {
-        
-
-
-        $statement = $this->pdo->prepare('UPDATE events SET name = ? , description = ? , start = ? , end = ? , hide = ? , is_published = ?, status = ?, created_at = ? WHERE id = ?');
+        $statement = $this->pdo->prepare('UPDATE events SET name = ? , description = ? , start = ? , end = ? WHERE id = ?');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
-            $event->getHide()->format('Y-m-d H:i:s'),
-            $event->getPublished()->format('Y-m-d H:i:s'),
-            $event->getStatus(),
-            $event->getId()
-        ]);
-    
-        return true;
-    }
-    /**
-     * TODO: Modifier le status d'un évenement au niveau de la base de données
-     * en le cachant grâce à une modification de $hide 
-     * @param Event $event
-     * @throws bool
-     */
-    public function hide (Event $event): bool {
-        $statement = $this->pdo->prepare('SELECT event FROM events WHERE id = ? LIMIT 1');
-        return $statement->execute([
-            $event->getHide()->format('Y-m-d H:i:s'),
-            $event->getPublished()->format('Y-m-d H:i:s'),
-            $event->getCreated()->format('Y-m-d H:i:s'),
-            $event->getStatus(),
-            $event->getId()
-        ]);
-    
-        return true;
-    }
-    /**
-     * TODO: Modifier le status d'un évenement au niveau de la base de données
-     * en le cachant grâce à une modification de $hide 
-     * @param Event $event
-     * @throws bool
-     */
-    public function published (Event $event): bool {
-        $statement = $this->pdo->prepare('SELECT event FROM events WHERE id = ? LIMIT 1');
-        return $statement->execute([
-            $event->getHide()->format('Y-m-d H:i:s'),
-            $event->getPublished()->format('Y-m-d H:i:s'),
-            $event->getStatus(),
             $event->getId()
         ]);
     

@@ -12,6 +12,8 @@ class Student {
 
     private $phone;
 
+    private $emNum;
+
     private $birthDay;
 
     private $level;
@@ -35,6 +37,9 @@ class Student {
     }
     public function getPhone(): int {
         return $this->phone;
+    }
+    public function getEmNum(): int {
+        return $this->emNum;
     }
 
     public function getBirthDay(): \DateTimeInterface {
@@ -65,6 +70,9 @@ class Student {
     }
     public function setPhone (int $phone) {
         $this->phone = $phone;
+    }
+    public function setEmNum (int $phone) {
+        $this->emNum = $emNum;
     }
     public function setBirthDay (string $birthDay) {
         $this->birthDay = $birthDay;

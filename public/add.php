@@ -1,25 +1,10 @@
 <?php
 require '../src/bootstrap.php';
 
-$status = [];
-if(isset($_POST['status'])){
-    echo $_POST['status'];
-}
-
-
-$status = [
-    'hide'          => $_POST['status2'],
-    'is_published'  => $_POST['status1'],
-    'status'        => $_GET['status'],
-];
-
 $data = [
     'date'          => $_GET['date'] ?? date('Y-m-d'),
     'start'         => date('H:i'),
     'end'           => date('H:i'),
-    'hide'          => $_POST['status2'] ?? date('Y-m-d'),
-    'is_published'  => $_POST['status1'] ?? date('Y-m-d'),
-    'status'        => $_POST['status'] ?? date('Y-m-d'),
     'created_at'    => date('Y-m-d H:i'),
 ];
 $validator = new \App\Validator($data);
@@ -34,16 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(empty($errors)) {
         $events = new \Calendar\Events(get_pdo());
         $event = $events->hydrate(new \Calendar\Event(), $data);
-        
         $events->create($event);
         header('location: /php-calendrier/public/index.php?success=1');
         exit();
     }
 }
 render('header', ['titre' => 'Ajouter un évènement']);
-dd($data);
-dd($status);
-dd($_POST['status']);
+
 ?>
 
 <div class="container">

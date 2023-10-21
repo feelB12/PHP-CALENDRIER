@@ -36,6 +36,10 @@ render('header', ['title' => $event->getName()]);
         Description:<br>
         <?= h($event->getDescription());?>
     </li>
+    <li>
+        Coach:<br>
+        <?= h($event->getCoach());?>
+    </li>
 </ul>
 
 <?php require '../views/footer.php'; ?>
